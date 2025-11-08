@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양 역사 탐험대 - 우리 아이 첫 역사 여행</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Spoqa Han Sans Neo', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #FFFFFF;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #FFFFFF;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #007F7F;
+        }
+        
+        .cta-button {
+            background: #007F7F;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .cta-button:hover {
+            background: #006666;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,127,127,0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #F5F5DC 0%, #FFFFFF 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: #007F7F;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .hero .description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .mvp-badge {
+            display: inline-block;
+            background: #007F7F;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        /* Heritage Showcase */
+        .heritage-showcase {
+            padding: 80px 0;
+            background: #FFFFFF;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #007F7F;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .heritage-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .heritage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,127,127,0.2);
+        }
+        
+        .heritage-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #007F7F 0%, #005555 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heritage-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .heritage-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.9);
+            color: #007F7F;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .heritage-content {
+            padding: 30px;
+        }
+        
+        .heritage-content h3 {
+            color: #007F7F;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .heritage-content p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .heritage-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .heritage-tag {
+            background: #F5F5DC;
+            color: #007F7F;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Problem Section */
+        .problem-section {
+            padding: 80px 0;
+            background: linear-gradient(to bottom, #F5F5DC 0%, #FFFFFF 100%);
+        }
+        
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .problem-card {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .problem-card h3 {
+            color: #007F7F;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .problem-card p {
+            color: #555;
+            font-size: 16px;
+        }
+        
+        /* Solution Section */
+        .solution-section {
+            padding: 80px 0;
+            background: #FFFFFF;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .solution-item {
+            display: flex;
+            gap: 25px;
+            align-items: start;
+            padding: 30px;
+            background: #F5F5DC;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .solution-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .solution-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        
+        .solution-text h3 {
+            color: #007F7F;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .solution-text p {
+            color: #555;
+            font-size: 16px;
+        }
+        
+        /* Curriculum Section */
+        .curriculum-section {
+            padding: 80px 0;
+            background: linear-gradient(to bottom, #F5F5DC 0%, #FFFFFF 100%);
+        }
+        
+        .curriculum-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+        
+        .curriculum-week {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+        
+        .curriculum-week:nth-child(even) {
+            direction: rtl;
+        }
+        
+        .curriculum-week:nth-child(even) > * {
+            direction: ltr;
+        }
+        
+        .week-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #007F7F 0%, #005555 100%);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,127,127,0.3);
+        }
+        
+        .week-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-25%, -25%) rotate(0deg); }
+            50% { transform: translate(-25%, -25%) rotate(180deg); }
+        }
+        
+        .week-image-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .week-image-text {
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        
+        .week-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .week-badge {
+            background: #007F7F;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .week-content h3 {
+            color: #007F7F;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+        
+        .week-location {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .week-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .week-content li {
+            padding: 12px 0;
+            padding-left: 30px;
+            color: #555;
+            position: relative;
+            border-bottom: 1px solid #F5F5DC;
+        }
+        
+        .week-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .week-content li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #007F7F;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 80px 0;
+            background: #FFFFFF;
+        }
+        
+        .pricing-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #E0E0E0;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .pricing-card.featured {
+            border-color: #007F7F;
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0,127,127,0.2);
+        }
+        
+        .special-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #007F7F;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            color: #007F7F;
+            margin-bottom: 20px;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #007F7F;
+            margin-bottom: 10px;
+        }
+        
+        .original-price {
+            font-size: 24px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 20px;
+        }
+        
+        .discount-label {
+            background: #FF6B6B;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .price-details {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: #F5F5DC;
+            border-radius: 10px;
+        }
+        
+        .price-details li {
+            padding: 8px 0;
+            color: #555;
+            list-style: none;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: #007F7F;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button.white {
+            background: white;
+            color: #007F7F;
+        }
+        
+        .cta-button.white:hover {
+            background: #F5F5DC;
+        }
+        
+        .limited-badge {
+            display: inline-block;
+            background: #FF6B6B;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: #F5F5DC;
+            padding: 40px 0;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero .subtitle {
+                font-size: 18px;
+            }
+            
+            .heritage-grid,
+            .solution-grid,
+            .pricing-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .curriculum-week {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .curriculum-week:nth-child(even) {
+                direction: ltr;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🏰 고양 역사 탐험대</div>
+                <button class="cta-button" onclick="scrollToApply()">1기 신청하기</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="mvp-badge">🎉 MVP 1기 모집 중</div>
+            <h1>스마트폰이 아닌,<br>유적지에서 만나는 진짜 역사</h1>
+            <p class="subtitle">고양의 유네스코 세계유산과 역사 현장을 발로 걸으며 배우는<br>우리 아이 첫 역사 교육 프로그램</p>
+            <p class="description">
+                책이 아닌 현장에서, 암기가 아닌 체험으로<br>
+                아이들이 스스로 역사를 탐험하고 질문하는 3주 여정
+            </p>
+            <button class="cta-button" onclick="scrollToApply()">특별 혜택 확인하기</button>
+        </div>
+    </section>
+
+    <section class="heritage-showcase">
+        <div class="container">
+            <h2 class="section-title">고양이 품은 소중한 역사</h2>
+            <p class="section-subtitle">우리 아이들이 직접 탐험할 고양의 역사문화유산</p>
+            
+            <div class="heritage-grid">
+                <div class="heritage-card">
+                    <div class="heritage-image">
+                        <span class="heritage-badge">사적 제56호</span>
+                        <div class="heritage-image-icon">🏯</div>
+                    </div>
+                    <div class="heritage-content">
+                        <h3>행주산성</h3>
+                        <p>임진왜란 3대 대첩 중 하나인 행주대첩의 현장! 권율 장군이 3만여 왜군을 물리친 역사의 현장에서 조선시대 전쟁사와 나라를 지킨 영웅들의 이야기를 생생하게 만나봅니다.</p>
+                        <div class="heritage-tags">
+                            <span class="heritage-tag">임진왜란</span>
+                            <span class="heritage-tag">행주대첩</span>
+                            <span class="heritage-tag">산성체험</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="heritage-card">
+                    <div class="heritage-image">
+                        <span class="heritage-badge">경기도 기념물</span>
+                        <div class="heritage-image-icon">⚔️</div>
+                    </div>
+                    <div class="heritage-content">
+                        <h3>최영장군묘</h3>
+                        <p>고려 말 충신 최영 장군의 묘소. "황금 보기를 돌같이 하라"는 유명한 유훈을 남긴 장군의 생애와 고려 말의 역동적인 역사를 배우며 청렴과 충절의 가치를 느껴봅니다.</p>
+                        <div class="heritage-tags">
+                            <span class="heritage-tag">고려시대</span>
+                            <span class="heritage-tag">충신</span>
+                            <span class="heritage-tag">역사인물</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="heritage-card">
+                    <div class="heritage-image">
+                        <span class="heritage-badge">유네스코 세계유산</span>
+                        <div class="heritage-image-icon">👑</div>
+                    </div>
+                    <div class="heritage-content">
+                        <h3>서오릉</h3>
+                        <p>조선 왕과 왕비가 잠든 유네스코 세계문화유산. 숙종, 영조, 인수대비 등 조선시대 주요 인물들의 무덤을 통해 왕릉의 건축미와 조선 왕실 문화를 체험합니다.</p>
+                        <div class="heritage-tags">
+                            <span class="heritage-tag">조선왕릉</span>
+                            <span class="heritage-tag">세계유산</span>
+                            <span class="heritage-tag">왕실문화</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">이런 고민, 있으신가요?</h2>
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="problem-icon">📱</div>
+                    <h3>스마트폰만 보는 아이</h3>
+                    <p>주말에도 집에서 유튜브와 게임만 하는 아이, 어떻게 밖으로 이끌어낼까요?</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📚</div>
+                    <h3>역사 과목이 지루한 아이</h3>
+                    <p>교과서 속 역사는 외울 것만 많고 재미없어요. 생동감 있게 배울 수는 없을까요?</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🏛️</div>
+                    <h3>가까운 유적지도 모르는 부모</h3>
+                    <p>고양에 유네스코 세계유산이 있는지도 몰랐어요. 어떻게 교육해야 할지 막막하시죠?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">고양 역사 탐험대가 해결합니다</h2>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <div class="solution-icon">🎯</div>
+                    <div class="solution-text">
+                        <h3>세계유산 현장 체험 학습</h3>
+                        <p>유네스코 세계유산 서오릉과 행주산성 등 고양의 주요 역사 유적지를 직접 방문하며 오감으로 역사를 느낍니다</p>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-icon">💡</div>
+                    <div class="solution-text">
+                        <h3>능동적 탐구 활동</h3>
+                        <p>암기가 아닌 질문과 탐험으로 스스로 역사를 발견하는 과정, 탐험노트에 직접 기록하며 배웁니다</p>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-icon">👨‍🏫</div>
+                    <div class="solution-text">
+                        <h3>전문 강사의 밀착 지도</h3>
+                        <p>역사 교육 전문가가 소규모 그룹(최대 15명)으로 깊이 있게 안내하고 아이들의 질문에 답합니다</p>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-icon">📦</div>
+                    <div class="solution-text">
+                        <h3>특별 제작 활동 키트</h3>
+                        <p>현장 학습을 더욱 재미있게 만들어줄 탐험노트, 역사카드, 미션활동지 등 특별 키트 제공</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="curriculum-section">
+        <div class="container">
+            <h2 class="section-title">3주 심층 커리큘럼</h2>
+            <p class="section-subtitle">고양의 역사를 시대순으로 체험하는 특별한 여정</p>
+            
+            <div class="curriculum-timeline">
+                <div class="curriculum-week">
+                    <div class="week-image">
+                        <div class="week-image-icon">⚔️</div>
+                        <div class="week-image-text">
+                            고려 말의 영웅<br>
+                            최영장군의 발자취를<br>
+                            따라가는 시간여행
+                        </div>
+                    </div>
+                    <div class="week-content">
+                        <div class="week-badge">1주차 현장학습</div>
+                        <h3>고려의 충신, 최영장군을 만나다</h3>
+                        <p class="week-location">📍 최영장군묘 (덕양구 대자동)</p>
+                        <ul>
+                            <li>최영 장군의 생애와 업적 탐구</li>
+                            <li>"황금 보기를 돌같이 하라" 유훈의 의미</li>
+                            <li>고려 말 역사적 배경 이해하기</li>
+                            <li>고려시대 무덤 양식 관찰하기</li>
+                            <li>탐험노트 1차 작성 (인물 중심)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="curriculum-week">
+                    <div class="week-image">
+                        <div class="week-image-icon">🏯</div>
+                        <div class="week-image-text">
+                            임진왜란 3대 대첩!<br>
+                            행주산성에서<br>
+                            역사의 현장을 체험
+                        </div>
+                    </div>
+                    <div class="week-content">
+                        <div class="week-badge">2주차 현장학습</div>
+                        <h3>행주산성, 나라를 지킨 영웅들</h3>
+                        <p class="week-location">📍 행주산성 (덕양구 행주내동)</p>
+                        <ul>
+                            <li>임진왜란과 행주대첩 스토리텔링</li>
+                            <li>산성 구조 탐험 (성벽, 정상, 대첩비)</li>
+                            <li>권율 장군과 백성들의 협력 배우기</li>
+                            <li>"행주치마"의 유래 알아보기</li>
+                            <li>팀별 미션: 산성 수비 전략 세우기</li>
+                        </ul>
+                    </div>
